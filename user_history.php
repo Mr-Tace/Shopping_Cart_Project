@@ -4,7 +4,7 @@ session_start();
 include("connection.php");
 include("functions.php");
 
-$result = display_format($con);
+$result = history_display_format($con);
 $user_cart = get_cart($con);
 $sum = SumPrice($con, $user_cart);
 
@@ -19,7 +19,7 @@ $sum = SumPrice($con, $user_cart);
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<title>Cart Items</title>
+	<title>User History</title>
 </head>
 <body class="bg-dark">
 	<div class="container">
@@ -27,13 +27,14 @@ $sum = SumPrice($con, $user_cart);
 			<div class="col">
 				<div class="card mt-5">
 					<div class="card-header">
-						<h2 class="display-6 text-center">Cart Items</h2>
+						<h2 class="display-6 text-center">User History</h2>
 					</div>
 					<div class="card-body">
 						<table class="table table-bordered text-center">
 							<tr class="bg-dark text-white">
-								<td> Cart_ID </td>
-								<td> Product_ID </td>
+								<td> Date</td>
+								<td> Product ID</td>
+								<td> Cart ID</td>
 								<td> Name </td>
 								<td> Price </td>
 							
@@ -46,8 +47,9 @@ $sum = SumPrice($con, $user_cart);
 									if($row['cart_id'] === $user_cart['id']){
 									
 							?>
-								<td><?php echo $row['cart_id']; ?></td>
+								<td><?php echo $row['date']; ?></td>
 								<td><?php echo $row['product_id']; ?></td>
+								<td><?php echo $row['cart_id']; ?></td>
 								<td><?php echo $row['name']; ?></td>
 								<td><?php echo $row['price']; ?></td>
 								
@@ -56,11 +58,6 @@ $sum = SumPrice($con, $user_cart);
 							<?php
 									}
 								}
-								
-								$srow = mysqli_fetch_assoc($sum);
-								echo 'Products in Cart: ';
-								echo $srow['SUM(price)'];
-								echo ' €';
 							?>
 						</table>
 					</div>
@@ -72,8 +69,7 @@ $sum = SumPrice($con, $user_cart);
 	<br>
 	
 	<a href="index.php">Home</a>
-	<a href="user_history.php">History</a>
-	<a href="finalize.php">End Shopping</a>
+	<a href="cart_items.php">Cart</a>
 	
 </body>
 </html>

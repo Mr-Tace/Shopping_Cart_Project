@@ -22,7 +22,7 @@ function check_login($con)
 	header("Location: login.php");
 	die;
 
-}
+} 
 
 
 function get_cart($con)
@@ -45,11 +45,20 @@ function get_cart($con)
 }
 
 
-function display_format($con) //Παίρνει πληροφορίες για το κάθε ID στο καλάθι (Όνομα, Τιμή)
+function display_format($con) //Παίρνει πληροφορίες για το κάθε ID στο καλάθι (Όνομα, Τιμή).
 {
 	$query = "SELECT cart_id, product_id, name, price
 	FROM cart_item LEFT JOIN product 
 	ON cart_item.product_id = product.id";
+	$result = mysqli_query($con,$query);
+	return $result;
+}
+
+function history_display_format($con)
+{
+	$query = "SELECT date, product_id, cart_id, name, price
+	FROM user_history LEFT JOIN product 
+	ON user_history.product_id = product.id";
 	$result = mysqli_query($con,$query);
 	return $result;
 }
@@ -99,7 +108,7 @@ function random_num($length)
 	$len = rand(4,$length);
 
 	for ($i=0; $i < $len; $i++) { 
-		# code...
+		
 
 		$text .= rand(0,9);
 	}

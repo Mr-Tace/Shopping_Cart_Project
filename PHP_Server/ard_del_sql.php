@@ -17,7 +17,7 @@ if (!$conn) {
 }
 
 
-$sql = "DELETE FROM cart_item WHERE product_id = $product_id";
+$sql = "DELETE FROM cart_item WHERE product_id = $product_id limit 1";
 
 if (mysqli_query($conn, $sql)) {
 echo "Record deleted successfully";
